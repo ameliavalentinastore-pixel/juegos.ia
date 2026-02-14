@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reto 2.1: Detective de Deepfakes</title>
+    <style>
+        :root { --danger: #e63946; --dark: #1d3557; --glass: rgba(255,255,255,0.9); }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%); color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: var(--glass); padding: 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); width: 90%; max-width: 450px; text-align: center; }
+        h2 { color: var(--danger); }
+        .case { background: #eee; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-weight: bold; border-left: 5px solid var(--danger); }
+        .btn { background: var(--dark); color: white; border: none; padding: 12px; margin: 8px 0; border-radius: 8px; cursor: pointer; width: 100%; font-size: 1rem; }
+        #feedback { margin-top: 15px; padding: 10px; border-radius: 8px; display: none; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🕵️ Escáner de Deepfakes</h2>
+    <p>Analiza la evidencia visual:</p>
+    <div class="case" id="caso">Observas un video donde un líder político parpadea de forma irregular y su piel se ve "demasiado perfecta".</div>
+    <div id="opciones">
+        <button class="btn" onclick="analizar(1)">Es un Deepfake: La falta de parpadeo natural es una pista clave [10].</button>
+        <button class="btn" onclick="analizar(0)">Es Real: La IA todavía no puede imitar la piel humana.</button>
+    </div>
+    <div id="feedback"></div>
+</div>
+
+<script>
+    function analizar(esCorrecto) {
+        const f = document.getElementById('feedback');
+        f.style.display = "block";
+        if(esCorrecto) {
+            f.innerHTML = "✅ ¡Excelente! Según Flores-Vivar [10], los contenidos sintéticos suelen presentar inconsistencias técnicas y sensoriales.";
+            f.style.background = "#2a9d8f";
+        } else {
+            f.innerHTML = "❌ ¡Cuidado! La manipulación visual busca eludir los filtros de veracidad tradicionales [10].";
+            f.style.background = "#e63946";
+        }
+    }
+</script>
+</body>
+</html>

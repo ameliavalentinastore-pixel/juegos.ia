@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto 1.2: Misión Privacidad</title>
+    <style>
+        :root { --sec: #457b9d; --dark: #1d3557; --accent: #a8dadc; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: white; color: #333; padding: 30px; border-radius: 20px; width: 90%; max-width: 450px; text-align: center; border-bottom: 8px solid var(--sec); }
+        h2 { color: var(--dark); margin-top: 0; }
+        .scen { font-style: italic; background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid var(--sec); }
+        .btn { background: var(--sec); color: white; border: none; padding: 12px; margin: 8px 0; border-radius: 8px; cursor: pointer; width: 100%; font-size: 1rem; transition: 0.3s; }
+        .btn:hover { background: var(--dark); }
+        #res { margin-top: 15px; font-weight: bold; display: none; padding: 10px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🔒 Misión: Privacidad</h2>
+    <p id="progreso">Escenario 1 de 2</p>
+    <div id="juego">
+        <p class="scen" id="texto-escenario">Estás usando una IA para desahogarte sobre un problema familiar. ¿Es seguro escribir nombres reales y detalles específicos?</p>
+        <button class="btn" onclick="verificar(0)">SÍ, la IA es como un diario privado.</button>
+        <button class="btn" onclick="verificar(1)">NO, los datos alimentan el modelo y pierdo el control [8].</button>
+        <div id="res"></div>
+    </div>
+</div>
+
+<script>
+    const misiones = [
+        {s: "Estás usando una IA para desahogarte sobre un problema familiar. ¿Es seguro escribir nombres reales y detalles específicos?", o: ["SÍ, la IA es como un diario privado.", "NO, los datos alimentan el modelo y pierdo el control [8]."], a: 1, f: "¡Correcto! Flores-Vivar [8] advierte sobre el riesgo de la huella digital permanente."},
+        {s: "Una App de IA te pide acceso a tu cámara y ubicación para 'mejorar la experiencia'. ¿Qué haces?", o: ["Acepto, quiero la mejor tecnología.", "Deniego o reviso términos; son datos sensibles [14]."], a: 1, f: "¡Excelente! La soberanía de tus datos es un principio de no maleficencia [14]."}
+    ];
+    let paso = 0;
+    function verificar(op) {
+        const r = document.getElementById('res');
+        r.style.display = "block";
+        if(op === misiones[paso].a) {
+            r.innerHTML = "✅ " + misiones[paso].f;
+            r.style.background = "#d4edda";
+            setTimeout(siguiente, 3000);
+        } else {
+            r.innerHTML = "❌ ¡Riesgo detectado! Revisa el concepto de soberanía de datos.";
+            r.style.background = "#f8d7da";
+        }
+    }
+    function siguiente() {
+        paso++;
+        if(paso < misiones.length) {
+            document.getElementById('progreso').innerText = `Escenario ${paso + 1} de 2`;
+            document.getElementById('texto-escenario').innerText = misiones[paso].s;
+            document.getElementById('res').style.display = "none";
+            const btns = document.querySelectorAll('.btn');
+            btns[0].innerText = misiones[paso].o[0];
+            btns[1].innerText = misiones[paso].o[1];
+        } else {
+            document.querySelector('.card').innerHTML = "<h2>🏆 ¡Soberanía Digital Alcanzada!</h2><p>Has protegido tu huella digital con éxito.</p>";
+        }
+    }
+</script>
+</body>
+</html>

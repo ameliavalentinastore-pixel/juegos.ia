@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reto 2.2: Inteligencia Híbrida</title>
+    <style>
+        :root { --main: #2a9d8f; --dark: #264653; --white: #ffffff; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .box { background: var(--white); color: #333; padding: 30px; border-radius: 20px; width: 90%; max-width: 450px; text-align: center; }
+        h2 { color: var(--main); }
+        .scenario { background: #f0f7f4; border: 2px dashed var(--main); padding: 15px; border-radius: 10px; margin: 20px 0; font-weight: 500; }
+        .btn { background: var(--main); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; margin: 5px 0; font-size: 1rem; }
+        .btn:hover { background: #21867a; }
+        #msg { margin-top: 15px; font-weight: bold; display: none; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🤝 Alianza Humano-IA</h2>
+        <p><b>Misión:</b> Mantener la Agencia Humana</p>
+        <div class="scenario">La IA generó un resumen de tu clase, pero incluyó un dato que te suena extraño. ¿Qué haces?</div>
+        <button class="btn" onclick="check(0)">Lo copio igual, la IA sabe más que yo.</button>
+        <button class="btn" onclick="check(1)">Verifico la fuente y corrijo el error [13].</button>
+        <div id="msg"></div>
+    </div>
+
+    <script>
+        function check(win) {
+            const m = document.getElementById('msg');
+            m.style.display = "block";
+            if(win) {
+                m.innerHTML = "✅ ¡Excelente! Eso es Inteligencia Híbrida: usar la IA sin perder tu juicio crítico [12, 13].";
+                m.style.color = "green";
+            } else {
+                m.innerHTML = "❌ ¡Cuidado! Estás perdiendo tu 'Agencia Humana'. La IA es un apoyo, no un reemplazo.";
+                m.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto 1.1: El Detective de Sesgos</title>
+    <style>
+        :root { --primary: #e63946; --dark: #1d3557; --light: #f1faee; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--dark); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: white; color: #333; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); width: 90%; max-width: 450px; text-align: center; }
+        h1 { color: var(--primary); font-size: 1.5rem; }
+        .pregunta { font-size: 1.1rem; margin-bottom: 20px; font-weight: 500; line-height: 1.4; }
+        .btn { background: var(--light); border: 2px solid #ddd; padding: 12px; margin: 8px 0; border-radius: 10px; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem; }
+        .btn:hover { background: #a8dadc; border-color: #457b9d; }
+        #feedback { margin-top: 15px; padding: 10px; border-radius: 8px; display: none; font-weight: bold; }
+        .next-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 15px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>⚖️ Reto: Sesgo Algorítmico</h1>
+    <p id="num">Pregunta 1 de 3</p>
+    <div id="quiz">
+        <p class="pregunta" id="txt-pregunta">¿Un algoritmo puede ser "racista" o "sexista" por sí solo?</p>
+        <div id="opciones">
+            <button class="btn" onclick="evaluar(0)">No, las máquinas son neutrales y objetivas.</button>
+            <button class="btn" onclick="evaluar(1)">Sí, hereda los prejuicios de los datos de entrenamiento [4].</button>
+        </div>
+        <div id="feedback"></div>
+        <button class="next-btn" id="btn-next" onclick="siguiente()">Siguiente pregunta</button>
+    </div>
+</div>
+
+<script>
+    const preguntas = [
+        {q: "¿Un algoritmo puede ser 'racista' o 'sexista' por sí solo?", o: ["No, las máquinas son neutrales y objetivas.", "Sí, hereda los prejuicios de los datos de entrenamiento [4]."], a: 1, f: "Correcto. Lacave et al. demuestran que el sesgo de género es una realidad latente heredada [4]."},
+        {q: "¿Qué sucede si una IA de orientación vocacional solo sugiere ingeniería a hombres?", o: ["Es una verdad técnica objetiva.", "Es un sesgo que limita la autonomía y equidad [13]."], a: 1, f: "¡Exacto! Paguay-Simbaña señala que esto refuerza estereotipos sistémicos [13]."},
+        {q: "La 'Auditoría de Prompts' sirve para:", o: ["Detectar prejuicios en las respuestas de la IA.", "Hacer que la IA responda más rápido."], a: 0, f: "¡Muy bien! Es una estrategia crítica para asegurar la inclusividad."}
+    ];
+
+    let indice = 0;
+
+    function evaluar(opcion) {
+        const feedback = document.getElementById('feedback');
+        const btnNext = document.getElementById('btn-next');
+        const correcta = preguntas[indice].a;
+
+        feedback.style.display = "block";
+        if(opcion === correcta) {
+            feedback.innerHTML = "✅ " + preguntas[indice].f;
+            feedback.style.background = "#d4edda";
+            feedback.style.color = "#155724";
+        } else {
+            feedback.innerHTML = "❌ Incorrecto. Revisa el concepto de herencia de datos [4].";
+            feedback.style.background = "#f8d7da";
+            feedback.style.color = "#721c24";
+        }
+        btnNext.style.display = "inline-block";
+    }
+
+    function siguiente() {
+        indice++;
+        if(indice < preguntas.length) {
+            document.getElementById('num').innerText = `Pregunta ${indice + 1} de 3`;
+            document.getElementById('txt-pregunta').innerText = preguntas[indice].q;
+            document.getElementById('opciones').children[0].innerText = preguntas[indice].o[0];
+            document.getElementById('opciones').children[1].innerText = preguntas[indice].o[1];
+            document.getElementById('feedback').style.display = "none";
+            document.getElementById('btn-next').style.display = "none";
+        } else {
+            document.getElementById('quiz').innerHTML = "<h2>🎉 ¡Reto 1.1 Superado!</h2><p>Ahora puedes continuar con el siguiente subtema en la presentación.</p>";
+        }
+    }
+</script>
+</body>
+</html>
